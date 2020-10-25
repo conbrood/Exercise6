@@ -1,0 +1,72 @@
+// Why are these packages needed in this program?
+// Comment above each one with your answer. 
+import java.util.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import javax.crypto.*;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+
+public class CryptoEngine {
+	// What is the function of these four variables?
+        // Comment above each one with your answer.
+        KeyGenerator keyGen;
+	String encFile, decFile;
+	SecretKey secKey;
+	Cipher aesCipher; 
+	
+	CryptoEngine(String inFile, String outFile) throws NoSuchAlgorithmException, NoSuchPaddingException {
+	   encFile = inFile;
+	   decFile = outFile;
+	  
+	   keyGen = KeyGenerator.getInstance("AES");
+           keyGen.init(128);
+           secKey = keyGen.generateKey();
+           aesCipher = Cipher.getInstance("AES");
+	}
+	
+	public void encrypt() throws InvalidKeyException, IOException {
+           byte[] byteText = "Include your plaintext to be encrypted here".getBytes();
+        
+           aesCipher.init(Cipher.ENCRYPT_MODE, secKey);
+	
+           byte[] byteCipherText = null;
+	   
+           try {
+	       byteCipherText = aesCipher.doFinal(byteText);
+     	   } catch (IllegalBlockSizeException | BadPaddingException e) {
+	       e.printStackTrace();
+           }
+	   Files.write(Paths.get(encFile), byteCipherText);
+	}
+	
+        // You will decrypt the encrypted file using the same general principles
+        // For each line that you supply, leave a detailed comment of what that line is doing, including the functionality of the methods and variables 
+	public void decrypt() throws IOException, InvalidKeyException {
+           // assign "Files.readAllBytes(Paths.get(encFile))" to the cipherText array (fill in the blank) 
+
+           // byte[] cipherText = ____________
+   
+           // call aesCipher.init as in the encrypt method, but this time, you will use DECRYPT_MODE!  
+           // _______________________________________________
+   
+           // declare and initialize a byte array just like in the encrypt method, but this time, call it bytePlainText
+           // _______________________________________________          
+
+           // I have commented out this try-catch block to make your code compilable, but you'll need to decomment it after filling in the code
+           // try {
+                // Decrypt the cipherText byte array with the same aesCipher.doFinal method as in encrypt method
+                // But this time, the byte arrays will be reversed!
+                // ___________________________________________
+		
+	   // } catch (IllegalBlockSizeException | BadPaddingException e) {
+	   //	e.printStackTrace();
+	   // }
+           
+           // Write your output to a file, similar to the Files.write method in the encrypt method (but be careful to use the correct byteArray and file)  
+           // _________________________________________________
+        }
+	
+}
