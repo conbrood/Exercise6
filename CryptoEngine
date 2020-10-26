@@ -1,21 +1,18 @@
-// Why are these packages needed in this program?
-// Comment above each one with your answer. 
-import java.util.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import javax.crypto.*;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
+import java.util.*; //by importing this i can access all classes and methods
+import java.nio.file.Files; //allows me to use static methods in comibnations with importing paths directly below
+import java.nio.file.Paths;//allows me to use static methods for path objects
+import javax.crypto.*; //javax is a extentsion that allows for the use classes and interfaces for cryptographic operations
+import java.io.FileNotFoundException; //this package find that if a file is called for but doesnt exist a file not found exception will be thrown.
+import java.io.IOException//this package throws a ioexception if there is a problem compiling/running
+import java.security.InvalidKeyException; //this package tells me if there is something wrong with the excryption key
+import java.security.NoSuchAlgorithmException; //this package exception is thrown when the algorithm request doesnt exist 
 
 public class CryptoEngine {
-	// What is the function of these four variables?
-        // Comment above each one with your answer.
-        KeyGenerator keyGen;
-	String encFile, decFile;
-	SecretKey secKey;
-	Cipher aesCipher; 
+	
+        KeyGenerator keyGen; //this is supposed to created a key or a code
+	String encFile, decFile; //these will encode or decode a text file
+	SecretKey secKey; //this function creates uses the encrypt or decrypt function to crete a secret key
+	Cipher aesCipher; //this is an ecyrpition algorithm 
 	
 	CryptoEngine(String inFile, String outFile) throws NoSuchAlgorithmException, NoSuchPaddingException {
 	   encFile = inFile;
@@ -42,31 +39,22 @@ public class CryptoEngine {
 	   Files.write(Paths.get(encFile), byteCipherText);
 	}
 	
-        // You will decrypt the encrypted file using the same general principles
-        // For each line that you supply, leave a detailed comment of what that line is doing, including the functionality of the methods and variables 
+ 
 	public void decrypt() throws IOException, InvalidKeyException {
-           // assign "Files.readAllBytes(Paths.get(encFile))" to the cipherText array (fill in the blank) 
+          
+          byte[] cipherText = Files.readAllBytes(Paths.get(encFile));
 
-           // byte[] cipherText = ____________
-   
-           // call aesCipher.init as in the encrypt method, but this time, you will use DECRYPT_MODE!  
-           // _______________________________________________
-   
-           // declare and initialize a byte array just like in the encrypt method, but this time, call it bytePlainText
-           // _______________________________________________          
+          aesCipher.init(Cipher.DECRYPT_MODE, secKey);
+          
+          byte[] bytePlainText = null;
+          try { bytePlainText = aesCipher.doFinal(cipherText);
 
-           // I have commented out this try-catch block to make your code compilable, but you'll need to decomment it after filling in the code
-           // try {
-                // Decrypt the cipherText byte array with the same aesCipher.doFinal method as in encrypt method
-                // But this time, the byte arrays will be reversed!
-                // ___________________________________________
-		
-	   // } catch (IllegalBlockSizeException | BadPaddingException e) {
-	   //	e.printStackTrace();
-	   // }
-           
-           // Write your output to a file, similar to the Files.write method in the encrypt method (but be careful to use the correct byteArray and file)  
-           // _________________________________________________
-        }
-	
+                          } 
+        catch (IllegalBlockSizeException | BadPaddingException e) {
+                          e.printStackTrace();
+          
+          Files.write(Paths.get(decFile), bytePlainText)
+          
+          
 }
+  }
