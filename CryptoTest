@@ -1,11 +1,12 @@
 public class CryptoTest {
 
     public static void main(String[] args) throws Exception {
-        // What's going on in the two lines below?
-        // Explain with a comment.
-        // I've not handled the error in which the args[] array is null.
-        // So, if you don't call the program correctly at the command line, you'll get an error.
-        // Try to handle this in some way.
+        // The two lines below are there to make sure all arguements are valid amd have been passed.
+
+if (args.length != 3) {
+System.out.println("Please give both input and output files");
+      
+      if else
   
         String inFile = args[0];
     	String outFile = args[1];    			    
@@ -14,3 +15,4 @@ public class CryptoTest {
     	cryptoEngine.encrypt();
     	cryptoEngine.decrypt();
     }
+}
