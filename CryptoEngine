@@ -1,3 +1,7 @@
+//The purpose of this block is designed to decipher text, so that files may be coded or decoded with specific keys that allow you access to the specified content.
+//The code presented here is very precise and clean.The only thing I might recommend for example, would be like on line 40, be careful in recognition on bracket placement, adding a couple spaces of pressing enter before adding a bracket at the end of a statement will only help improve your clarity even more.
+
+
 import java.util.*; //by importing this i can access all classes and methods
 import java.nio.file.Files; //allows me to use static methods in comibnations with importing paths directly below
 import java.nio.file.Paths;//allows me to use static methods for path objects
